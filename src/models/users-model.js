@@ -29,7 +29,7 @@ const userSchema = new Schema({
     userEmail: {
         type: String, 
         required: [true, 'Campo requerido'],
-        minLength:[10, 'Se requiere mínimo 10 caracteres'],
+        minLength:[11, 'Se requiere mínimo 10 caracteres'],
         maxLength:[80, 'Se acepta máximo 80 caracteres']
     },
     userPassword: {
