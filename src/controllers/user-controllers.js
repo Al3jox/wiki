@@ -161,14 +161,18 @@ userCtr.login = async(req, res) => {
 
         const match = await bcrypt.compare(userPassword, user.userPassword)
         if(match){
-            const token = jwt.sign({_id:user._id}, '%$S3cW1k*1+Pa4s-.')
+            const token = jwt.sign(
+                {_id:user._id}, 
+                '%$S3cW1k*1+Pa4s-.',
+                {expiresIn: '8h'}
+            )
             res.json({
                 mensaje: 'Bienvenido',
                 id: user._id,
                 name: user.userName,
                 lastname: user.userLastName, 
                 token
-            })
+            });
         }
 
         else{

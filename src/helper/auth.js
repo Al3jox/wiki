@@ -17,12 +17,13 @@ auth.TokenVerify = (req, res, next) =>{
             })
         }
 
-        jwt.verify(token, '%$S3cW1k*1+Pa4s-.', (error, resultado) =>{
+        jwt.verify(token, '%$S3cW1k*1+Pa4s-.', (error, decoded) =>{
             if(error){
                 return res.status(401).json({
-                    mensaje: 'Hubo un problema con el token, no estás autorizado'
+                    mensaje: 'El token ha expirado, por favor inicia sesión nuevamente'
                 })                
             }
+            req.user = decoded;
             next();
         })
 
