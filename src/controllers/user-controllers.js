@@ -170,7 +170,9 @@ userCtr.login = async(req, res) => {
                 mensaje: 'Bienvenido',
                 id: user._id,
                 name: user.userName,
-                lastname: user.userLastName, 
+                lastname: user.userLastName,
+                isAdm: user.isAdmin,
+                isAct: user.isActive,
                 token
             });
         }
