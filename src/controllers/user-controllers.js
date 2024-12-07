@@ -150,30 +150,37 @@ userCtr.deleteUser = async(req, res) => {
 
 // Login del user
 userCtr.login = async(req, res) => {
-    const {userEmail, userPassword} = req.body
-    const user = await userModel.findOne({userEmail:userEmail})
-    if(!user){
-        return res.json({
-            mensaje: 'Correo incorrecto'
-        })
-    }
+    try {
+        const {userEmail, userPassword} = req.body
+        const user = await userModel.findOne({userEmail:userEmail})
+        if(!user){
+            return res.json({
+                mensaje: 'Correo incorrecto'
+            })
+        }
 
-    const match = await bcrypt.compare(userPassword, user.userPassword)
-    if(match){
-        const token = jwt.sign({_id:user._id}, '%$S3cW1k*1+Pa4s-.')
-        res.json({
-            mensaje: 'Bienvenido',
-            id: user._id,
-            name: user.userName,
-            lastname: user.userLastName, 
-            token
-        })
-    }
+        const match = await bcrypt.compare(userPassword, user.userPassword)
+        if(match){
+            const token = jwt.sign({_id:user._id}, '%$S3cW1k*1+Pa4s-.')
+            res.json({
+                mensaje: 'Bienvenido',
+                id: user._id,
+                name: user.userName,
+                lastname: user.userLastName, 
+                token
+            })
+        }
 
-    else{
-        res.json({
-            mensaje: 'Contraseña incorrecta'
-        })
+        else{
+            res.json({
+                mensaje: 'Contraseña incorrecta'
+            })
+        }
+    } catch (error) {
+        res.status(500).json({
+            mensaje: 'Ha ocurrido un error: ',
+            error: error.message
+        });
     }
 
 }

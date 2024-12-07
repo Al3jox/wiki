@@ -2,13 +2,15 @@ const {Router} = require('express');
 const router = Router();
 const userCtr = require('../controllers/user-controllers.js');
 const usersModel = require('../models/users-model.js');
+const auth = require('../helper/auth.js');
 
+// Rutas
 router.post('/createUser', userCtr.createUser);
-router.get('/listUser', userCtr.listUsers);
-router.get('/listUsersById/:id', userCtr.listUsersById);
-router.put('/updateUserById/:id', userCtr.updateUserById);
-router.delete('/deleteUser/:id', userCtr.deleteUser);
+router.get('/listUser', auth.TokenVerify, userCtr.listUsers);
+router.get('/listUsersById/:id', auth.TokenVerify, userCtr.listUsersById);
+router.put('/updateUserById/:id', auth.TokenVerify, userCtr.updateUserById);
+router.delete('/deleteUser/:id', auth.TokenVerify, userCtr.deleteUser);
+router.post('/login', userCtr.login);
 
-// router.post('/loginAdmin', adminCtr.login);
 
 module.exports = router
