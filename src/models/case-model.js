@@ -20,19 +20,25 @@ const caseSchema = new Schema({
         minLength:[3, 'Se requiere mínimo 3 caracteres'],
         maxLength:[100, 'Se acepta máximo 100 caracteres']
     },
+    caseDetail:{
+        type: String,
+        required: [true, 'Campo requerido'],
+        minLength:[10, 'Se requiere mínimo 10 caracteres'],
+        maxLength:[3000, 'Se acepta máximo 100 caracteres']
+    },
     caseKeyWords:{
         type: [String],
         required: [true, 'Campo requerido'],
         validate:
         [
             {
-            characterValidator: function (keyWords){
+            validator: function (keyWords){
                 return keyWords.every(word => word.length >= 3 && word.length <= 50);
                 },
                 message: 'Cada palabra debe tener entre 3 y 50 caracteres'
             },
             {
-            inNullValidator: function (keyWords){
+            validator: function (keyWords){
                 return keyWords.length > 0;
                 },
                 message: 'Los campos del arreglo no pueden ir vacios'

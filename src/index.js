@@ -18,6 +18,7 @@ app.use(cors({origen: '*'}));
 
 // Rutas
 app.use('/users', require('./routes/user.router.js'));
+app.use('/cases', require('./routes/case.router.js'));
 
 // Oir el puerto
 app.listen(app.get('Port'), () =>{
