@@ -15,7 +15,5 @@ router.put('/updateCaseById/:id', auth.TokenVerify, caseCtr.updateCaseById);
 router.delete('/deleteCase/:id', auth.TokenVerify, caseCtr.deleteCase);
 
 
-router.get('/listUser', auth.TokenVerify, userCtr.listUsers);
-
-
+// Exportación de rutas
 module.exports = router

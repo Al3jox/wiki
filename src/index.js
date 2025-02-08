@@ -5,6 +5,7 @@ const morgan = require('morgan');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const req = require('express/lib/request');
+const limiter = require('./helper/rateLimiter.js');
 
 // Requerimos la BD
 require('./database')
@@ -15,6 +16,7 @@ app.use(morgan('dev'));
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 app.use(cors({origen: '*'}));
+app.use(limiter);
 
 // Rutas
 app.use('/users', require('./routes/user.router.js'));

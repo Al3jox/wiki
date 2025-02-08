@@ -7,6 +7,7 @@ const usersModel = require('../models/users-model.js');
 
 // Crear User
 userCtr.createUser = async (req, res) => {
+
     try {
         const { userName, userLastName, userDepartment, userPosition, userEmail, userPassword } = req.body;
 
@@ -39,6 +40,7 @@ userCtr.createUser = async (req, res) => {
             lastname: savedUser.userLastName,
             token
         });
+
     } catch (error) {
         if (error.name === 'ValidationError') {
             return res.status(400).json({
@@ -161,7 +163,7 @@ userCtr.login = async(req, res) => {
 
         const match = await bcrypt.compare(userPassword, user.userPassword)
         if(match){
-            const token = jwt.sign(
+            const token = jwt.sign( // Aquí va el decoded. Se puede agrgar más datos a la carga del token
                 {_id:user._id}, 
                 '%$S3cW1k*1+Pa4s-.',
                 {expiresIn: '8h'}
